@@ -1,0 +1,31 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu May 11 22:55:20 2023
+
+@author: MSI
+"""
+
+from openpyxl import load_workbook
+
+path = r'C:\ITWILL\공모전'
+excel_file = load_workbook(path+r'\data\표준품명(2023).xlsx',data_only=True)
+data = excel_file['표준품명(2023)']
+a = data['A1'].Value
+
+import pandas as pd
+
+df1 = pd.read_csv(path+r'\data\표준품명(2023).csv', encoding='euc-kr')
+df1.shape # (25833, 16)
+df1.columns
+df1['HS부호'].nunique() # 925
+
+df2 = pd.read_csv(path+r'\data\제11회 산업통상자원부 공공데이터활용 BI공모전_빅데이터 분석 과제 2_데이터.csv', encoding='euc-kr')
+df2.shape # (16116, 2)
+df2.columns 
+df2['HS코드'].nunique() # 16073
+df2['MTI코드'].nunique() # 1309
+
+'''
+MTI 코드 : 수출입품목 분류체계 (산통부)
+HS부호 = HS코드 -> 관세행정, 실적추정에사용, MTI코드에 개별품목의 가공단계를 반영
+'''
